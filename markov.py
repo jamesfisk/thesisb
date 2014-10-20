@@ -66,25 +66,29 @@ def fileToProb(text):
   nums = initArray()
   prob = initArray()
   populateNums(letters, nums)
+  #printArray(nums)
   populateProb(nums, prob)
+  #printArray(prob)
   return prob
 
 def forward(probA, probB, fileName):
   scoreA = 0.0
   scoreB = 0.0
   letters = readFile(fileName)
+  #print(letters)
 
   for i in range(1, len(letters)):
-    index = ord(letters[i]) - 97
-    scoreA += probA[index][index - 1]
-    scoreB += probB[index][index - 1]
+    current = ord(letters[i]) - 97
+    before = ord(letters[i - 1]) - 97
+    scoreA += probA[current][before]
+    scoreB += probB[current][before]
   print("Score A:  " + str(scoreA))
   print("Score B:  " + str(scoreB))
 
 
 def main():
   probA = fileToProb("testmarkov.txt")
-  probB = fileToProb("testmarkovB.txt")
+  probB = fileToProb("quixote.txt")
   
   forward(probA, probB, "interrogator.txt")
   """
